@@ -1,103 +1,96 @@
-import Image from "next/image";
+// PASTE THIS NEW CODE INTO YOUR app/page.tsx FILE
 
-export default function Home() {
+import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { HeroAnimation } from './components/HeroAnimation'; // Import the new component
+
+// --- Reusable Components (for sections below the animation) ---
+const TestimonialCard = ({ text, author, role }: { text: string, author: string, role: string }) => (
+  <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
+    <p className="text-gray-300 mb-4">"{text}"</p>
+    <div>
+      <p className="font-semibold text-white">{author}</p>
+      <p className="text-sm text-purple-400">{role}</p>
+    </div>
+  </div>
+);
+
+
+// --- Main Page Component ---
+export default function TranslateUpLandingPage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+    <div className="bg-black text-white">
+      {/* The header is now part of the main page layout */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-md">
+        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <Image src="/logo.svg" alt="TranslateUp Logo" width={32} height={32} />
+            <span className="text-xl font-bold text-white">TranslateUp</span>
+          </div>
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://play.google.com/store/apps/details?id=com.hindi.english.translate.language.word.dictionary"
             target="_blank"
             rel="noopener noreferrer"
+            className="flex items-center space-x-2 bg-white text-black font-semibold px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+            <span>Get Started</span>
+            <ArrowRight size={16} />
           </a>
         </div>
+      </header>
+
+      <main>
+        {/* This is our new, complex hero animation */}
+        <HeroAnimation />
+
+        {/* The rest of the page appears after the animation area */}
+        <div className="bg-black"> {/* This ensures a seamless transition */}
+            {/* --- Testimonials Section --- */}
+            <section id="testimonials" className="py-20">
+            <div className="container mx-auto px-6">
+                <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold">Loved by Users Worldwide</h2>
+                <p className="text-gray-400 mt-2">Don't just take our word for it.</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <TestimonialCard
+                    text="This is the best translator app I've ever used. The camera translation is a lifesaver for traveling!"
+                    author="Aarav Sharma"
+                    role="Frequent Traveler"
+                />
+                <TestimonialCard
+                    text="Incredibly accurate and fast. The conversation mode works like a charm. Highly recommended for students and professionals."
+                    author="Priya Patel"
+                    role="Language Student"
+                />
+                <TestimonialCard
+                    text="A must-have app. The UI is clean, and the AI translation feels much more natural than other apps I've tried."
+                    author="Rohan Das"
+                    role="Tech Enthusiast"
+                />
+                </div>
+            </div>
+            </section>
+            
+            {/* --- Footer --- */}
+            <footer id="contact" className="py-12 border-t border-gray-800">
+            <div className="container mx-auto px-6 text-center text-gray-500">
+                <div className="flex justify-center items-center space-x-2 mb-4">
+                <Image src="/logo.svg" alt="TranslateUp Logo" width={24} height={24} />
+                <span className="text-lg font-bold text-gray-400">TranslateUp</span>
+                </div>
+                <div className="space-x-6 mb-4">
+                <a href="#" className="hover:text-white">Privacy Policy</a>
+                <a href="#" className="hover:text-white">Terms of Service</a>
+                <a href="mailto:support@translateup.app" className="hover:text-white">Contact</a>
+                </div>
+                <p suppressHydrationWarning={true}>
+                    &copy; {new Date().getFullYear()} TranslateUp. All rights reserved.
+                </p>
+            </div>
+            </footer>
+        </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
