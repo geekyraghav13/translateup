@@ -1,4 +1,4 @@
-// PASTE THIS FINAL, POLISHED CODE INTO app/components/HeroAnimation.tsx
+// PASTE THIS CODE INTO app/components/HeroAnimation.tsx
 
 "use client";
 
@@ -15,8 +15,6 @@ export const HeroAnimation = () => {
     offset: ["start start", "end end"],
   });
 
-  // --- Animation Timeline ---
-
   const initialTextOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
   const mainAnimationOpacity = useTransform(scrollYProgress, [0.15, 0.25], [0, 1]);
   const phoneX = useTransform(scrollYProgress, [0.4, 0.6], ['-30vw', '0vw']);
@@ -28,14 +26,14 @@ export const HeroAnimation = () => {
   const smoothRotate = useSpring(rotate, springConfig);
   const scale = useTransform(scrollYProgress, [0.15, 0.95, 1], [0.8, 1, 0.9]);
   
-  const features = [
+    const features = [
     { icon: Camera, title: "Camera Translation", x: "-100%", y: "-250%" },
     { icon: MessageSquare, title: "Text Translation", x: "-200%", y: "-100%" },
     { icon: Mic, title: "Voice Conversation", x: "250%", y: "-250%" },
     { icon: BookOpen, title: "Dictionary", x: "-280%", y: "100%" },
     { icon: WifiOff, title: "Offline Mode", x: "350%", y: "0%" },
     { icon: History, title: "History", x: "-100%", y: "130%" },
-    { icon: Star, title: "Favorites", x: "280%", y: "120%" },
+    
   ];
   
   const getCardTransforms = (index: number) => {
@@ -52,10 +50,9 @@ export const HeroAnimation = () => {
   };
 
   return (
-    // THE FIX: Increased height from 600vh to 700vh to add a pause at the end.
-    <section ref={targetRef} className="relative h-[700vh] bg-black">
+    // Set a height that finishes the animation. The page component will handle the pause.
+    <section ref={targetRef} className="relative h-[600vh] bg-black">
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-
         <motion.div
           style={{ opacity: initialTextOpacity }}
           className="absolute inset-0 flex items-center justify-center z-50"
@@ -64,7 +61,6 @@ export const HeroAnimation = () => {
             Speak the World's Languages.
           </h1>
         </motion.div>
-        
         <motion.div style={{ opacity: mainAnimationOpacity }} className="absolute inset-0">
             <motion.div 
                 style={{ opacity: textOpacity }} 
@@ -81,7 +77,6 @@ export const HeroAnimation = () => {
                     <Image src="/google-play-badge.png" alt="Get it on Google Play" width={180} height={68} />
                 </a>
             </motion.div>
-            
             <motion.div style={{ rotate: smoothRotate, scale, x: smoothX }} className="absolute left-1/2 top-0 bottom-0 flex items-center z-20 w-[300px] h-[600px] md:w-[350px] md:h-[700px] my-auto">
               <div className="relative w-full h-full">
                 <Image 
@@ -94,7 +89,6 @@ export const HeroAnimation = () => {
                 <div className="absolute inset-0 border-[14px] border-gray-800 rounded-[50px] pointer-events-none"></div>
               </div>
             </motion.div>
-            
             <div className="absolute inset-0 flex items-center justify-center">
               {features.map((feature, index) => {
                   return (
@@ -110,7 +104,6 @@ export const HeroAnimation = () => {
               })}
             </div>
         </motion.div>
-
       </div>
     </section>
   );

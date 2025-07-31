@@ -1,9 +1,13 @@
 // PASTE THIS CODE INTO YOUR app/page.tsx FILE
 
+"use client"; // This page now needs to be a client component for the animation
+
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { HeroAnimation } from './components/HeroAnimation';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
+// --- Reusable Components ---
 const TestimonialCard = ({ text, author, role }: { text: string, author: string, role: string }) => (
   <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
     <p className="text-gray-300 mb-4">"{text}"</p>
@@ -14,7 +18,20 @@ const TestimonialCard = ({ text, author, role }: { text: string, author: string,
   </div>
 );
 
+// --- Main Page Component ---
 export default function TranslateUpLandingPage() {
+  // We listen to the main window's scroll position
+  const { scrollYProgress } = useScroll();
+
+  // THE FIX: The testimonials section will only fade in after the user has scrolled
+  // far down the page (i.e., past the main hero animation).
+  // This creates the "pause" you wanted.
+  const testimonialsOpacity = useTransform(
+    scrollYProgress,
+    [0.85, 0.9], // Start fading in when the page is 85% scrolled
+    [0, 1]
+  );
+  
   return (
     <div className="bg-black text-white">
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-md">
@@ -36,11 +53,11 @@ export default function TranslateUpLandingPage() {
       </header>
 
       <main>
-        {/* This is the hero animation component */}
+        {/* This is our hero animation component */}
         <HeroAnimation />
 
-        {/* The rest of the page appears after the animation */}
-        <div className="bg-black">
+        {/* This container will fade in at the end of the scroll */}
+        <motion.div style={{ opacity: testimonialsOpacity }}>
             <section id="testimonials" className="py-20">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-12">
@@ -83,7 +100,7 @@ export default function TranslateUpLandingPage() {
                 </p>
             </div>
             </footer>
-        </div>
+        </motion.div>
       </main>
     </div>
   );
