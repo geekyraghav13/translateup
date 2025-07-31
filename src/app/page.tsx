@@ -1,10 +1,9 @@
-// PASTE THIS NEW CODE INTO YOUR app/page.tsx FILE
+// PASTE THIS CODE INTO YOUR app/page.tsx FILE
 
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
-import { HeroAnimation } from './components/HeroAnimation'; // Import the new component
+import { HeroAnimation } from './components/HeroAnimation';
 
-// --- Reusable Components (for sections below the animation) ---
 const TestimonialCard = ({ text, author, role }: { text: string, author: string, role: string }) => (
   <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
     <p className="text-gray-300 mb-4">"{text}"</p>
@@ -15,12 +14,9 @@ const TestimonialCard = ({ text, author, role }: { text: string, author: string,
   </div>
 );
 
-
-// --- Main Page Component ---
 export default function TranslateUpLandingPage() {
   return (
     <div className="bg-black text-white">
-      {/* The header is now part of the main page layout */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-md">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-2">
@@ -40,12 +36,11 @@ export default function TranslateUpLandingPage() {
       </header>
 
       <main>
-        {/* This is our new, complex hero animation */}
+        {/* This is the hero animation component */}
         <HeroAnimation />
 
-        {/* The rest of the page appears after the animation area */}
-        <div className="bg-black"> {/* This ensures a seamless transition */}
-            {/* --- Testimonials Section --- */}
+        {/* The rest of the page appears after the animation */}
+        <div className="bg-black">
             <section id="testimonials" className="py-20">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-12">
@@ -59,7 +54,7 @@ export default function TranslateUpLandingPage() {
                     role="Frequent Traveler"
                 />
                 <TestimonialCard
-                    text="Incredibly accurate and fast. The conversation mode works like a charm. Highly recommended for students and professionals."
+                    text="Incredibly accurate and fast. The conversation mode works like a charm. Highly recommended."
                     author="Priya Patel"
                     role="Language Student"
                 />
@@ -72,7 +67,6 @@ export default function TranslateUpLandingPage() {
             </div>
             </section>
             
-            {/* --- Footer --- */}
             <footer id="contact" className="py-12 border-t border-gray-800">
             <div className="container mx-auto px-6 text-center text-gray-500">
                 <div className="flex justify-center items-center space-x-2 mb-4">
