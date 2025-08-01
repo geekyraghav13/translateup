@@ -1,16 +1,15 @@
-// PASTE THIS CODE INTO YOUR app/page.tsx FILE
+// PASTE THIS CORRECTED CODE INTO YOUR app/page.tsx FILE
 
-"use client"; // This page now needs to be a client component for the animation
+"use client"; 
 
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { HeroAnimation } from './components/HeroAnimation';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-// --- Reusable Components ---
 const TestimonialCard = ({ text, author, role }: { text: string, author: string, role: string }) => (
   <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
-    <p className="text-gray-300 mb-4">"{text}"</p>
+    <p className="text-gray-300 mb-4">{text}</p>
     <div>
       <p className="font-semibold text-white">{author}</p>
       <p className="text-sm text-purple-400">{role}</p>
@@ -18,17 +17,12 @@ const TestimonialCard = ({ text, author, role }: { text: string, author: string,
   </div>
 );
 
-// --- Main Page Component ---
 export default function TranslateUpLandingPage() {
-  // We listen to the main window's scroll position
   const { scrollYProgress } = useScroll();
 
-  // THE FIX: The testimonials section will only fade in after the user has scrolled
-  // far down the page (i.e., past the main hero animation).
-  // This creates the "pause" you wanted.
   const testimonialsOpacity = useTransform(
     scrollYProgress,
-    [0.85, 0.9], // Start fading in when the page is 85% scrolled
+    [0.85, 0.9],
     [0, 1]
   );
   
@@ -53,30 +47,29 @@ export default function TranslateUpLandingPage() {
       </header>
 
       <main>
-        {/* This is our hero animation component */}
         <HeroAnimation />
-
-        {/* This container will fade in at the end of the scroll */}
         <motion.div style={{ opacity: testimonialsOpacity }}>
             <section id="testimonials" className="py-20">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold">Loved by Users Worldwide</h2>
-                <p className="text-gray-400 mt-2">Don't just take our word for it.</p>
+                {/* THE FIX #2: Replaced ' with &apos; */}
+                <p className="text-gray-400 mt-2">Don&apos;t just take our word for it.</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 <TestimonialCard
-                    text="This is the best translator app I've ever used. The camera translation is a lifesaver for traveling!"
+                    // THE FIX #2: Replaced " with &quot;
+                    text="&quot;This is the best translator app I've ever used. The camera translation is a lifesaver for traveling!&quot;"
                     author="Aarav Sharma"
                     role="Frequent Traveler"
                 />
                 <TestimonialCard
-                    text="Incredibly accurate and fast. The conversation mode works like a charm. Highly recommended."
+                    text="&quot;Incredibly accurate and fast. The conversation mode works like a charm. Highly recommended.&quot;"
                     author="Priya Patel"
                     role="Language Student"
                 />
                 <TestimonialCard
-                    text="A must-have app. The UI is clean, and the AI translation feels much more natural than other apps I've tried."
+                    text="&quot;A must-have app. The UI is clean, and the AI translation feels much more natural than other apps I've tried.&quot;"
                     author="Rohan Das"
                     role="Tech Enthusiast"
                 />
