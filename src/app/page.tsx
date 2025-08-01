@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { HeroAnimation } from './components/HeroAnimation';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { AdvancedTextAnimation } from './components/AdvancedTextAnimation'; // Make sure this is imported
 
 const TestimonialCard = ({ text, author, role }: { text: string, author: string, role: string }) => (
   <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
@@ -20,11 +21,7 @@ const TestimonialCard = ({ text, author, role }: { text: string, author: string,
 export default function TranslateUpLandingPage() {
   const { scrollYProgress } = useScroll();
 
-  const testimonialsOpacity = useTransform(
-    scrollYProgress,
-    [0.85, 0.9],
-    [0, 1]
-  );
+  const testimonialsOpacity = useTransform(scrollYProgress, [0.9, 0.95], [0, 1]);
   
   return (
     <div className="bg-black text-white">
@@ -47,18 +44,20 @@ export default function TranslateUpLandingPage() {
       </header>
 
       <main>
+        {/* THE FIX: Added the AdvancedTextAnimation component back in */}
+        <AdvancedTextAnimation />
+        
         <HeroAnimation />
+
         <motion.div style={{ opacity: testimonialsOpacity }}>
             <section id="testimonials" className="py-20">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold">Loved by Users Worldwide</h2>
-                {/* THE FIX #2: Replaced ' with &apos; */}
                 <p className="text-gray-400 mt-2">Don&apos;t just take our word for it.</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 <TestimonialCard
-                    // THE FIX #2: Replaced " with &quot;
                     text="&quot;This is the best translator app I've ever used. The camera translation is a lifesaver for traveling!&quot;"
                     author="Aarav Sharma"
                     role="Frequent Traveler"
