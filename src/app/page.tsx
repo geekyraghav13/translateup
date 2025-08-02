@@ -1,12 +1,12 @@
-// PASTE THIS CORRECTED CODE INTO YOUR app/page.tsx FILE
+// PASTE THIS UPDATED CODE INTO YOUR app/page.tsx FILE
 
 "use client"; 
 
-import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { HeroAnimation } from './components/HeroAnimation';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { AdvancedTextAnimation } from './components/AdvancedTextAnimation'; // Make sure this is imported
+import { AdvancedTextAnimation } from './components/AdvancedTextAnimation';
+import { AnimatedButton } from './components/AnimatedButton'; // 1. Import the new button
 
 const TestimonialCard = ({ text, author, role }: { text: string, author: string, role: string }) => (
   <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
@@ -21,7 +21,11 @@ const TestimonialCard = ({ text, author, role }: { text: string, author: string,
 export default function TranslateUpLandingPage() {
   const { scrollYProgress } = useScroll();
 
-  const testimonialsOpacity = useTransform(scrollYProgress, [0.9, 0.95], [0, 1]);
+  const testimonialsOpacity = useTransform(
+    scrollYProgress,
+    [0.9, 0.95], 
+    [0, 1]
+  );
   
   return (
     <div className="bg-black text-white">
@@ -31,24 +35,16 @@ export default function TranslateUpLandingPage() {
             <Image src="/logo.svg" alt="TranslateUp Logo" width={32} height={32} />
             <span className="text-xl font-bold text-white">TranslateUp</span>
           </div>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.hindi.english.translate.language.word.dictionary"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-2 bg-white text-black font-semibold px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
-          >
-            <span>Get Started</span>
-            <ArrowRight size={16} />
-          </a>
+          
+          {/* 2. Replace the old button with the new one */}
+          <AnimatedButton />
+
         </div>
       </header>
 
       <main>
-        {/* THE FIX: Added the AdvancedTextAnimation component back in */}
         <AdvancedTextAnimation />
-        
         <HeroAnimation />
-
         <motion.div style={{ opacity: testimonialsOpacity }}>
             <section id="testimonials" className="py-20">
             <div className="container mx-auto px-6">
