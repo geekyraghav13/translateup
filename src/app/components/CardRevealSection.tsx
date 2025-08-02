@@ -1,38 +1,48 @@
-// PASTE THIS CORRECTED CODE INTO: src/app/components/CardRevealSection.tsx
+// PASTE THIS UPDATED CODE INTO: src/app/components/CardRevealSection.tsx
 
 "use client";
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import styles from './CardRevealSection.module.css';
+import Image from 'next/image';
 
+// THE FIX: This now points to your local images in the /public folder
 const cardData = [
-  { title: "Global Reach", poweredBy: "100+ Languages" },
-  { title: "Real-Time Voice", poweredBy: "Conversation Mode" },
-  { title: "Instant Camera", poweredBy: "Visual Translation" },
-  { title: "Offline Access", poweredBy: "No Internet Needed" },
+  { title: "Global Reach", poweredBy: "100+ Languages", imageUrl: "/card-image-1.jpg" },
+  { title: "Real-Time Voice", poweredBy: "Conversation Mode", imageUrl: "/card-image-2.jpg" },
+  { title: "Instant Camera", poweredBy: "Visual Translation", imageUrl: "/card-image-3.jpg" },
+  { title: "Offline Access", poweredBy: "No Internet Needed", imageUrl: "/card-image-4.jpg" },
 ];
 
-// A new, dedicated component for each card to handle its own animation
 const AnimatedCard = ({ index, scrollYProgress }: { index: number, scrollYProgress: MotionValue<number> }) => {
-  // Each card's animation is staggered based on its index.
-  // Card 0 animates between 10% and 30% scroll, Card 1 between 25% and 45%, etc.
   const start = 0.1 + index * 0.15;
   const end = start + 0.2;
 
-  // Animate each card individually from off-screen right (100vw) to its final position (0vw).
   const x = useTransform(scrollYProgress, [start, end], ["100vw", "0vw"]);
   const opacity = useTransform(scrollYProgress, [start, end], [0, 1]);
 
   const card = cardData[index];
 
   return (
-    // This motion.div handles the animation for a single card
     <motion.div style={{ x, opacity }}>
       <div className={styles.card}>
-        <p className={styles.heading}>{card.title}</p>
-        <p>Powered By</p>
-        <p>{card.poweredBy}</p>
+        <div className={styles.imageContainer}>
+          <Image 
+            src={card.imageUrl} 
+            alt={card.title} 
+            fill 
+            style={{ objectFit: 'cover' }}
+            className={styles.image}
+            // Add an error placeholder in case an image is missing
+            onError={(e) => { e.currentTarget.src = 'https://placehold.co/400x300/000000/FFF?text=Image'; }}
+          />
+        </div>
+        <div className={styles.textContainer}>
+          <p className={styles.heading}>{card.title}</p>
+          <p>Powered By</p>
+          <p>{card.poweredBy}</p>
+        </div>
       </div>
     </motion.div>
   );
@@ -45,13 +55,11 @@ export const CardRevealSection = () => {
     offset: ["start start", "end end"],
   });
 
-  // This will fade out the entire section at the end of the scroll
   const sectionOpacity = useTransform(scrollYProgress, [0.9, 1], [1, 0]);
 
   return (
     <section ref={targetRef} className="relative h-[500vh] bg-black">
       <motion.div style={{ opacity: sectionOpacity }} className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        {/* This container uses flexbox to space out the cards correctly once they arrive */}
         <div className="flex gap-16">
           {cardData.map((_, index) => (
             <AnimatedCard key={index} index={index} scrollYProgress={scrollYProgress} />
