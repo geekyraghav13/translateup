@@ -2,11 +2,13 @@
 
 "use client"; 
 
+import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { HeroAnimation } from './components/HeroAnimation';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { AdvancedTextAnimation } from './components/AdvancedTextAnimation';
-import { AnimatedButton } from './components/AnimatedButton'; // 1. Import the new button
+import { CardRevealSection } from './components/CardRevealSection'; // 1. Import the new component
+import { AnimatedButton } from './components/AnimatedButton';
 
 const TestimonialCard = ({ text, author, role }: { text: string, author: string, role: string }) => (
   <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
@@ -23,7 +25,7 @@ export default function TranslateUpLandingPage() {
 
   const testimonialsOpacity = useTransform(
     scrollYProgress,
-    [0.9, 0.95], 
+    [0.95, 1], // Adjusted timing for the new, longer page
     [0, 1]
   );
   
@@ -35,16 +37,18 @@ export default function TranslateUpLandingPage() {
             <Image src="/logo.svg" alt="TranslateUp Logo" width={32} height={32} />
             <span className="text-xl font-bold text-white">TranslateUp</span>
           </div>
-          
-          {/* 2. Replace the old button with the new one */}
           <AnimatedButton />
-
         </div>
       </header>
 
       <main>
         <AdvancedTextAnimation />
+        
+        {/* 2. Add the new card section here */}
+        <CardRevealSection />
+
         <HeroAnimation />
+
         <motion.div style={{ opacity: testimonialsOpacity }}>
             <section id="testimonials" className="py-20">
             <div className="container mx-auto px-6">
