@@ -1,4 +1,4 @@
-/* PASTE THIS UPDATED CODE INTO: src/app/components/CardRevealSection.module.css */
+/* PASTE THIS FINAL, CORRECTED CODE INTO: src/app/components/CardRevealSection.module.css */
 
 .card {
   position: relative;
@@ -14,13 +14,6 @@
   cursor: pointer;
   color: white;
   border: 1px solid #222;
-  overflow: hidden;
-  transition: transform 0.3s ease; /* Added for a subtle lift effect */
-}
-
-/* Added a hover effect to lift the card slightly */
-.card:hover {
-  transform: translateY(-10px);
 }
 
 .imageContainer {
@@ -45,14 +38,15 @@
   gap: 8px;
 }
 
+/* THE FIX: The width and height are now correctly sized for the larger card */
 .card::before {
   content: '';
   position: absolute;
   inset: 0;
   left: -5px;
   margin: auto;
-  width: 260px;
-  height: 390px;
+  width: 260px; /* Was 200px, now corrected */
+  height: 390px; /* Was 264px, now corrected */
   border-radius: 10px;
   background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
   z-index: -10;
@@ -85,7 +79,6 @@
   font-weight: 600;
 }
 
-/* THE FIX: These are the hover effects for the glowing border */
 .card:hover::after {
   filter: blur(30px);
 }

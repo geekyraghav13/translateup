@@ -7,7 +7,6 @@ import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import styles from './CardRevealSection.module.css';
 import Image from 'next/image';
 
-// THE FIX: This now points to your local images in the /public folder
 const cardData = [
   { title: "Global Reach", poweredBy: "100+ Languages", imageUrl: "/card-image-1.jpg" },
   { title: "Real-Time Voice", poweredBy: "Conversation Mode", imageUrl: "/card-image-2.jpg" },
@@ -34,7 +33,6 @@ const AnimatedCard = ({ index, scrollYProgress }: { index: number, scrollYProgre
             fill 
             style={{ objectFit: 'cover' }}
             className={styles.image}
-            // Add an error placeholder in case an image is missing
             onError={(e) => { e.currentTarget.src = 'https://placehold.co/400x300/000000/FFF?text=Image'; }}
           />
         </div>
@@ -58,8 +56,10 @@ export const CardRevealSection = () => {
   const sectionOpacity = useTransform(scrollYProgress, [0.9, 1], [1, 0]);
 
   return (
+    // Increased height for a smoother, slower scroll animation
     <section ref={targetRef} className="relative h-[500vh] bg-black">
       <motion.div style={{ opacity: sectionOpacity }} className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+        {/* THE FIX: Increased gap for better spacing */}
         <div className="flex gap-16">
           {cardData.map((_, index) => (
             <AnimatedCard key={index} index={index} scrollYProgress={scrollYProgress} />

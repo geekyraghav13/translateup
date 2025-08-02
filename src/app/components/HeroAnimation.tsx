@@ -78,7 +78,7 @@ export const HeroAnimation = () => {
                     href="https://play.google.com/store/apps/details?id=com.hindi.english.translate.language.word.dictionary"
                     target="_blank" rel="noopener noreferrer" className="inline-block mt-6"
                 >
-                    <Image src="/google-play-badge.png" alt="Get it on Google Play" width={180} height={68} />
+                    <Image src="/google-play-badg.png" alt="Get it on Google Play" width={180} height={68} />
                 </a>
             </motion.div>
             
