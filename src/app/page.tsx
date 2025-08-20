@@ -7,8 +7,10 @@ import Image from 'next/image';
 import { HeroAnimation } from './components/HeroAnimation';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { AdvancedTextAnimation } from './components/AdvancedTextAnimation';
-import { CardRevealSection } from './components/CardRevealSection'; // 1. Import the new component
+import { CardRevealSection } from './components/CardRevealSection';
 import { AnimatedButton } from './components/AnimatedButton';
+// 1. IMPORT THE NEW COMPONENT (WITHOUT CURLY BRACES)
+import TranslateEffectSection from './components/TranslateEffectSection'; 
 
 const TestimonialCard = ({ text, author, role }: { text: string, author: string, role: string }) => (
   <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
@@ -44,8 +46,10 @@ export default function TranslateUpLandingPage() {
       <main>
         <AdvancedTextAnimation />
         
-        {/* 2. Add the new card section here */}
         <CardRevealSection />
+
+        {/* 2. ADD THE NEW ANIMATION SECTION HERE */}
+        <TranslateEffectSection />
 
         <HeroAnimation />
 
